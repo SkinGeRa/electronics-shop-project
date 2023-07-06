@@ -63,13 +63,10 @@ class Item:
             # raise Exception('Длина наименования товара превышает 10 символов')
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls, file):
         """
         Класс-метод, инициализирующий экземпляры класса `Item` данными из файла _src/items.csv
         """
-        # file = '../src/items.csv'
-        file = '../src/items2.csv'
-        # file = '../src/item.csv'
         cls.all.clear()
         try:
             with open(file, newline="") as csvfile:
@@ -83,6 +80,8 @@ class Item:
             raise FileNotFoundError("Отсутствует файл item.csv")
         except InstantiateCSVError as error:
             print(error.message)
+            return error.message
+
 
     @staticmethod
     def string_to_number(file):
@@ -97,6 +96,6 @@ class Item:
 
 
 class InstantiateCSVError(Exception):
-
+    """Класс-исключение"""
     def __init__(self, *args, **kwargs):
         self.message = "Файл item.csv поврежден"
